@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Calculator</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <div class="design_container">
+        
+    </div>
+    <div class="container">
+        <h1>Attendance Calculator</h1>
+        <form action="/calculate" method="post">
+            <label for="reg_no">Reg Number:</label>
+            <input type="text" id="reg_no" name="reg_no" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="submit" value="Calculate">
+        </form>
+
+        {% if result %}
+            <p>{{ result }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
