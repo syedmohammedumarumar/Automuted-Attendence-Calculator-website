@@ -15,19 +15,24 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     border-radius: 20px;
+    width: 80%;
+    max-width: 350px;
 }
 
 h1 {
     margin-bottom: 20px;
+    font-size: 24px;
 }
 
 label {
     font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="password"] {
-    width: 70%;
+    width: 80%;
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
@@ -41,6 +46,7 @@ input[type="submit"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 80%;
 }
 
 input[type="submit"]:hover {
@@ -50,4 +56,18 @@ input[type="submit"]:hover {
 p {
     font-size: 18px;
     color: green;
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin: 0 25px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    input[type="submit"] {
+        padding: 10px;
+    }
 }
