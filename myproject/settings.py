@@ -154,3 +154,6 @@ LOGGING = {
         },
     },
 }
+
+
+CSRF_TRUSTED_ORIGINS = ['https://automuted-attendence-calculator-website-1.onrender.com']
