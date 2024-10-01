@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-vj@lsmja$pqsm=g*7&9%n#c*4(#bn8(e=*q7&@4w12i^vi9yvh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['automuted-attendence-calculator-website.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['automuted-attendence-calculator-website-1.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
