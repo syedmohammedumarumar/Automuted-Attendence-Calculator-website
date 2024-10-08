@@ -1,0 +1,343 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Attendance Calculator - Madanapalle Institution of Technology and Science</title>
+    <link rel="icon" href="{% static 'myapp/imgs/favicon-16x16.png' %}" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #FF6584;
+            --text-color: #F8F9FA;
+            --bg-color: #1A1A2E;
+            --card-bg: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #0F0F1B 0%, #1A1A2E 70%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            background-color: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            position: static;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        
+        .nav-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-color);
+        }
+        
+        header {
+            color: white;
+            text-align: left;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+        
+        .header-content {
+            z-index: 2;
+            max-width: 50%;
+            padding: 2rem;
+        }
+        
+        .header-image-container {
+            width: 35%;
+            height: 310px;
+            position: relative;
+            animation: floatAnimation 4s ease-in-out infinite;
+            margin: 0 5%;
+        }
+        
+        .header-image {
+            width: 90%;
+            /* height: 100%; */
+            object-fit: contain;
+        }
+        
+        @keyframes floatAnimation {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        
+        
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+        
+            .header-content {
+                max-width: 100%;
+                padding: 1rem;
+            }
+        
+            .header-image-container {
+                width: 80%;
+                height: 300px;
+                margin-top: 2rem;
+            }
+        }
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        main {
+            padding: 3rem 0;
+        }
+        
+        .card {
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.2);
+        }
+        
+        .card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .card-content {
+            flex: 1;
+            padding: 0 2rem;
+        }
+        
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        li::before {
+            content: '•';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(255, 101, 132, 0.2);
+            margin-top: 1rem;
+        }
+        
+        .cta-button:hover {
+            background-color: #FF4F73;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(255, 101, 132, 0.4);
+        }
+        
+        .card-image {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover .card-image {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                position: static;
+            }
+        
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            .nav-heading {
+                margin-top: 0.5rem;
+            }
+        
+            h1 {
+                font-size: 1.5rem;
+            }
+        
+            .card {
+                flex-direction: column !important;
+                padding: 1.5rem;
+            }
+        
+            .card-image {
+                width: 100%;
+                height: 200px;
+                margin-bottom: 1rem;
+            }
+        
+            .card-content {
+                padding: 0;
+            }
+        }
+        
+    </style>
+  
+</head>
+<body>
+    <nav>
+        <div class="container nav-container">
+            <div class="nav-heading">Madanapalle Institution of Technology and Science</div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h1>Official Attendance Calculator</h1>
+            <p>Hey Mitsian! Welcome to the Official Attendance Calculator Website of Madanapalle Institution of Technology and Science. This tool helps you easily calculate your attendance for the semester. Calculate your attendance effortlessly by entering your registration number and password. It's that easy!</p>
+            <br>
+            <p>Click the button below to get started!</p>
+            <a href="/home" class="cta-button" id="calculateBtn">Calculate Your Attendance Now!</a>
+        </div>
+        <div class="header-image-container">
+            <img src="{% static 'myapp/imgs/calculator.svg' %}" alt="Attendance Calculator Illustration" class="header-image">
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <div class="card-content">
+                <h2>Purpose of the Website</h2>
+                <ul>
+                    <li>This website simplifies the process of calculating your attendance percentage using real-time data scraped from the official college portal.</li>
+                    <li>Manually calculating attendance can be time-consuming and inconvenient, often requiring multiple logins and navigation through various pages.</li>
+                    <li>Effortlessly calculate your attendance in just 30 seconds by entering your registration number and password.</li>
+                    <li>Get instant results without the hassle of digging through the college website.</li>
+                    <li>Check your attendance daily, multiple times, without any hesitation.</li>
+                    <li>The primary goal is to provide a quick, efficient, and user-friendly way to stay informed about your attendance status.</li>
+                </ul>
+            </div>
+        </section>
+        
+
+        <section class="card">
+            <div class="card-content">
+                <h2>Important Guidelines</h2>
+                <ul>
+                    <li><strong>Fast Internet Required:</strong> Make sure you have a strong and stable internet connection for the tool to function smoothly. If the connection is slow, it might take longer to process your request and sometimes you may not get the result.</li>
+                    <li><strong>Verify the College Website:</strong> If the attendance calculation isn't working, first check whether the college's official attendance portal <br> <a href="http://www.mitsims.in/" target="_blank" style='color: #6C63FF'>(mits gems)</a> is online and accessible. If their site is down or experiencing issues, our tool won't be able to retrieve the necessary data.</li>
+                    <li><strong>Data Accuracy:</strong> This tool scrapes data from the official website, so the accuracy of the results depends on the information provided there. Always double-check if you feel the numbers don't add up.</li>
+                    <li><strong>Privacy and Safety:</strong> Your details are safe and are only used to retrieve your attendance information. We do not store or share any of your personal information like register number and password.</li>
+                    <li><strong>Troubleshooting:</strong> If you encounter issues, refresh the page or try again after a few minutes. Make sure you're entering the correct details.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+         // Animation for cards
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

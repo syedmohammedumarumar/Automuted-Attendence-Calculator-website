@@ -11,6 +11,9 @@ import time
 def home(request):
     return render(request, 'index.html')
 
+def main(request):
+    return render(request,'main.html')
+    
 def calculate_attendance(request):
     if request.method == 'POST':
         reg_no = request.POST['reg_no']

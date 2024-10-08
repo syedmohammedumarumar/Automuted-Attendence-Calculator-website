@@ -1,26 +1,37 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Calculator</title>
-    {% load static %}
+    <link rel="icon" href="{% static 'myapp/imgs/favicon-16x16.png' %}" type="image/png">
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}">
 </head>
+
 <body>
     <div class="container">
-        <h1>Calculate Attendance</h1>
-        <form action="{% url 'calculate_attendance' %}" method="post">
-            {% csrf_token %}
-            <label for="reg_no">Registration Number:</label>
-            <input type="text" id="reg_no" name="reg_no" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <input type="submit" value="Calculate">
-        </form>
-        {% if result %}
-            <p>{{ result }}</p>
-        {% endif %}
+        <div class="form-container">
+            <div class="headingsidx">
+                <h1>Calculate Attendance</h1>
+                <a href="/">Back</a>
+            </div>
+            <form action="{% url 'calculate_attendance' %}" method="post">
+                {% csrf_token %}
+                <div class="input-container">
+                    <label for="reg_no">Registration Number:</label>
+                    <input type="text" placeholder="Enter Roll No" id="reg_no" name="reg_no" class="input-field" required>
+                </div>
+                <div class="input-container">
+                    <label for="password">Password:</label>
+                    <input type="password" placeholder="Enter Mits gems password" id="password" name="password" class="input-field" required>
+                </div>
+                <input type="submit" value="Calculate" class="submit-btn">
+            </form>
+            {% if result %}
+                <p>{{ result }}</p>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
