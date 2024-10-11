@@ -7,13 +7,25 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import time
+import requests  # For checking website status
+
+# Function to check if the official college website is reachable
+def check_website_status(url):
+    try:
+        response = requests.get(url, timeout=10)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    except requests.RequestException:
+        return False
 
 def home(request):
     return render(request, 'index.html')
 
 def main(request):
-    return render(request,'main.html')
-    
+    return render(request, 'main.html')
+
 def calculate_attendance(request):
     if request.method == 'POST':
         reg_no = request.POST['reg_no']
@@ -29,14 +41,21 @@ def calculate_attendance(request):
         options.add_argument('--allow-insecure-localhost')  # Allow insecure localhost connections
         options.add_argument('--log-level=3')  # Set logging level to fatal
 
-
         driver = None
+        college_url = "http://mitsims.in/"
+
         try:
+            # Check if the college website is reachable
+            if not check_website_status(college_url):
+                result = "The official college website is currently down. You cannot calculate your attendance until it is back online."
+                return render(request, 'index.html', {'result': result})
+
+            # Proceed with attendance scraping if the website is reachable
             service = Service(ChromeDriverManager().install())
             driver = webdriver.Chrome(service=service, options=options)
 
             # Open the website
-            driver.get("http://www.mitsims.in/home.jsp")
+            driver.get(college_url)
 
             # Wait until the page is fully loaded
             WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "studentLink"))).click()
@@ -53,26 +72,37 @@ def calculate_attendance(request):
             # Wait for the attendance data to load (adjust if necessary)
             time.sleep(10)
 
-            # Extract attendance percentages using JavaScript
+            # Extract name and attendance percentages using JavaScript
             script = """
+                var name = '';
                 var percentages = [];
                 var elements = document.getElementsByClassName('x-form-display-field');
+                
                 for (var i = 0; i < elements.length; i++) {
                     var text = elements[i].innerText.trim();
+                    
+                    // Check if this element contains the student's name
+                    if (i == 0) {  // Assuming the name is the first element
+                        name = text;
+                    }
+                    
+                    // Extract attendance percentages (those containing floating points)
                     if (text && text.includes('.')) {
                         percentages.push(parseFloat(text));
                     }
                 }
-                return percentages;
+                return { 'name': name, 'percentages': percentages };
             """
-            percentage_values = driver.execute_script(script)
+            data = driver.execute_script(script)
+            student_name = data['name']
+            percentage_values = data['percentages']
             percentage_values = [p for p in percentage_values if p is not None]
 
             if percentage_values:
                 total_percentage = sum(percentage_values) / len(percentage_values)
-                result = f"Your total attendance percentage is: {total_percentage:.2f}%"
+                result = f"Hey {student_name}, your total attendance percentage is: {total_percentage:.2f}%"
             else:
-                result = "No valid attendance percentages found."
+                result = "Please enter correct username and password."
 
         except Exception as e:
             result = f"An error occurred: {e}"
