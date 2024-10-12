@@ -39,19 +39,23 @@
                 placeholder="Enter Roll No"
                 id="reg_no"
                 name="reg_no"
+                autocomplete="username"  <!-- Added autocomplete for roll number -->
                 required
               />
             </div>
             <div class="input-field">
-              <i class="ri-lock-password-line"></i>
+              <i class="ri-eye-off-line" id="togglePassword" onclick="togglePasswordVisibility()"></i>
               <input
                 type="password"
                 placeholder="Enter Gems password"
                 id="password"
                 name="password"
+                autocomplete="current-password"  <!-- Added autocomplete for password -->
                 required
               />
             </div>
+            
+            
           
             <button type="submit" class="btn calculate-btn">Calculate</button>
             {% if result %}
@@ -64,7 +68,7 @@
       <div class="info-wrapper">
         <div class="panel left-panel">
           <div class="panel-content">
-            <p>Calculate your attendance easily and instantly</p>
+            <p>Please wait after clicking on calculate button. This process may take up to <b style="color:#6C63FF">30-40 seconds</b> max.</p>
             <button class="btn transparent">
               <a href="{% url 'main' %}">Back</a>
             </button>
@@ -77,5 +81,23 @@
         </div>
       </div>
     </div>
+    <script>
+      function togglePasswordVisibility() {
+        const passwordField = document.getElementById("password");
+        const toggleIcon = document.getElementById("togglePassword");
+      
+        if (passwordField.type === "password") {
+          passwordField.type = "text"; // Show the password
+          toggleIcon.classList.remove("ri-eye-off-line");
+          toggleIcon.classList.add("ri-eye-fill"); // Change the icon
+        } else {
+          passwordField.type = "password"; // Hide the password
+          toggleIcon.classList.remove("ri-eye-fill");
+          toggleIcon.classList.add("ri-eye-off-line"); // Revert the icon
+        }
+      }
+      
+      
+    </script>
   </body>
 </html>
