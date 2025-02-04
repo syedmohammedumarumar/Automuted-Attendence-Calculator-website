@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'automuted-attendence-calculator-website.onrender.com',
     'automuted-attendence-calculator-website-3.onrender.com',
+    'automated-attendence-calculator-website-4.onrender.com',
     'localhost',
     '127.0.0.1',
 ]
@@ -166,4 +167,5 @@ LOGGING = {
 CSRF_TRUSTED_ORIGINS = [
     "https://automuted-attendence-calculator-website.onrender.com",
      'https://automuted-attendence-calculator-website-3.onrender.com',
+    'https://automated-attendence-calculator-website-4.onrender.com',
 ]
