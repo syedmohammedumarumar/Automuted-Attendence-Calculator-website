@@ -164,5 +164,6 @@ LOGGING = {
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://automuted-attendence-calculator-website.onrender.com"
+    "https://automuted-attendence-calculator-website.onrender.com",
+     'https://automuted-attendence-calculator-website-3.onrender.com',
 ]
