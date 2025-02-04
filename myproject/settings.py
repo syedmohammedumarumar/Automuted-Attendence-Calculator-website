@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'automuted-attendence-calculator-website.onrender.com',
+    'automuted-attendence-calculator-website-3.onrender.com',
     'localhost',
     '127.0.0.1',
 ]
